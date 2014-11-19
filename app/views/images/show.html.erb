@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col-md-1">
+     <div class="glyphicon glyphicon-user" style="font-size:10em;"></div>
+  </div>
+  <div class="col-md-10">
+     <p class="bubble">How do you like this design? Feel free to leave any comments on the right, or select an area on the image to talk about a specific part.  </p>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-md-8" >
+      <br>
+      <% width, height = @image.dimensions %>
+      <%=  image_tag(@image.foto.url, width: '750', :id => 'annotatableImage') %>
+  </div>
+  <div class="col-md-4" >
+    <div id="image-comment-container">
+      <p class="image-comment-container-title">comments</p>
+      <hr/>
+      <% @image.comments.each do |comment| %>
+      <div class="image-comment"><%= comment.value %>
+        <div class="image-comment-buttons-container">
+
+          <%= link_to( edit_user_document_image_comment_path(@user,@document,@image,comment)) do %>
+            <div class="image-comment-delete "> </div>
+          <% end %>
+          <%= link_to( edit_user_document_image_comment_path(@user,@document,@image,comment)) do %>
+            <div class="image-comment-edit "></div>
+          <% end %>
+        </div>
+
+        </div>
+      <% end %>
+    </div>
+
+
+<%= form_for([@image, @image.comments.build],  remote: true) do |f| %>
+  <p>
+    <%= f.label :value %><br>
+    <%= f.text_field :value %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
+  </div>
+</div>
+
+
+
+<%= link_to 'Edit', edit_image_path(@image) %> |
+<%= link_to 'Back', user_document_path(@user,@document) %>

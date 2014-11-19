@@ -1,0 +1,96 @@
+// Place all the styles related to the images controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.bubble
+{
+margin-left:30px;
+position: relative;
+width: 500px;
+height: 90px;
+padding: 3px;
+background: #bdbdbd;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 10px;
+padding:7px;
+}
+
+.bubble:after
+{
+content: '';
+position: absolute;
+border-style: solid;
+border-width: 12px 20px 12px 0;
+border-color: transparent #bdbdbd;
+display: block;
+width: 0;
+z-index: 1;
+left: -20px;
+top: 21px;
+}
+
+//comments
+#image-comment-container
+{
+  margin-top:12px;
+  margin-bottom:10px;
+  background: #e6e6e6;
+  padding: 5px;
+}
+
+.image-comment-container-title
+{
+  margin-bottom: 2px;
+}
+
+.image-comment
+{
+  margin:5px;
+  border:1px solid black;
+  padding:5px;
+  // -webkit-transition: all 1000ms;
+  //   -moz-transition: all 1000ms;
+  //   -ms-transition: all 1000ms;
+  //   -o-transition: all 1000ms;
+  //   transition: all 1000ms;
+}
+
+.image-comment:hover .image-comment-buttons-container
+{
+  display: block;
+}
+
+.image-comment-delete {
+  background: url(image-path('delete.png'));
+  width:16px;
+  height:16px;
+  text-indent:100px;
+  overflow:hidden;
+  float:right;
+}
+
+
+.image-comment-edit {
+  background: url(image-path('pencil.png'));
+  width:16px;
+  height:16px;
+  text-indent:100px;
+  overflow:hidden;
+  margin-right:4px;
+  float:right;
+}
+
+.image-comment-edit:hover {
+  opacity: 1.0;
+}
+
+.image-comment-buttons-container{
+  display: none;
+  text-indent:100px;
+  width:50px;
+  float:right;
+  height:18px;
+  overflow:hidden;
+  opacity:0.4;
+}

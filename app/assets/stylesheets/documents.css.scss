@@ -1,0 +1,139 @@
+// Place all the styles related to the documents controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.item {
+    display: inline-block;
+    margin: 3px;
+    background-position: center center;
+    background-size: cover;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+    -webkit-filter: grayscale(100%);
+}
+
+.index-item {
+    display: inline-block;
+    margin: 3px;
+    background-position: center center;
+    background-size: cover;
+}
+
+/*Hover effects*/
+.item:hover {
+    -webkit-filter: none;
+    -moz-filter: none;
+    -ms-filter: none;
+    -o-filter: none;
+    filter: none;
+}
+
+.index-item:hover {
+    display: inline-block;
+    margin: 3px;
+    background-position: center center;
+    background-size: cover;
+    border: 1px solid black;
+}
+
+
+
+#add_document_button {
+    border: 1px solid black;
+    height: 194px;
+    width: 194px;
+    font-size: 13em;
+    text-align:center;
+}
+
+#add_document_button:hover {
+    border: 3px solid black;
+}
+
+
+
+/* documents index */
+.latest_image{
+  background-position: center center;
+  background-size: cover;
+  border: 1px solid black;
+}
+
+.first_comment_container{
+    display:flex;
+    height:100px;
+}
+
+.comment_container{
+    height: 250px;
+    display:flex;
+}
+
+.comment{
+    margin:auto 0;
+}
+
+.first_vertical_text_container{
+    height: 100px;
+    display:flex;
+}
+
+.vertical_text_container{
+    height: 250px;
+    display:flex;
+}
+
+.first_vertical_text{
+    margin:auto 0px auto 280px;
+
+}
+
+.vertical_text{
+  margin:auto 0px auto 300px;
+}
+
+.border_left{
+    border-left:3px solid #ccc;
+    height:100px;
+}
+
+hr
+{
+    margin:0px !important;
+    border: none !important;
+    height: 3px !important;
+    /* Set the hr color */
+    color: #89867e !important;
+    background-color: #89867e !important;
+}
+
+.overview_thumb
+{
+    background-position: center center;
+    background-size: cover;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+    -webkit-filter: grayscale(100%);
+    width:250px;
+    height:250px;
+    border: 1px solid black;
+}
+
+.overview_thumb:hover
+{
+  -webkit-filter: none;
+    -moz-filter: none;
+    -ms-filter: none;
+    -o-filter: none;
+    filter: none;
+}
+
+.border-right{
+    border-right:3px solid #ccc;
+}

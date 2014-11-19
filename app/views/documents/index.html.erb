@@ -1,0 +1,53 @@
+<div class="row">
+    <div class="col-md-12">
+    <div id="masonry-container">
+      <% @documents.each do |document| %>
+        <%
+        width, height = document.images.last.dimensions
+        if width>height then
+          div_width = "394"
+          div_height = "194"
+        end
+        if width<height then
+          div_width = "194"
+          div_height = "394"
+        end
+        if width==height then
+          div_width = "194"
+          div_height = "194"
+        end
+        %>
+
+        <%= link_to(user_document_path(@user, document)) do %>
+         <div class="index-item" style="background-image:url(<%= document.images.last.foto.url %>); width:<%= div_width %>px; height:<%= div_height %>px;"> </div>
+        <% end %>
+
+
+
+          <!-- #link_to image_tag(document.images.last.foto.url(:thumb)), user_document_path(@user, document)
+           #document.images.last.dimensions
+          #link_to 'Edit', edit_document_path(document)
+           #link_to 'Destroy', user_document_path(@user,document), method: :delete, data: { confirm: 'Are you sure?' } -->
+        <% end %>
+        <%= link_to(new_user_document_path(@user,@document)) do %>
+          <div id="add_document_button" class="index-item"> +
+          </div>
+        <% end %>
+
+     </div>
+  </div>
+</div>
+<%= javascript_tag do %>
+  doMasonryMagic();
+<% end %>
+
+<% nnn = "Jason" %>
+
+<!-- link_to 'New Document', new_user_document_path(@user,@document) -->
+
+
+
+
+<%= javascript_tag do %>
+  <!-- alert("<%= nnn %>"); -->
+<% end %>

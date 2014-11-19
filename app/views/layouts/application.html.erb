@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ReviewApp</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body onload="init();">
+
+<div id="header" align="center">
+  <h4 id="title"> <%= @title %> </h4>
+  <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
+</div>
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+<div class="container">
+
+    <%= yield %>
+</div>
+
+
+
+
+<% if user_signed_in? %>
+
+<% end%>
+
+</body>
+</html>

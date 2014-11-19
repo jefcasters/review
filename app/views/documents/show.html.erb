@@ -1,0 +1,117 @@
+<p id="notice"><%= notice %></p>
+
+
+<% i = 0 %>
+<div class="row">
+  <% @images.each do |image| %>
+    <% if i == 0 %>
+
+      <%= link_to(user_document_image_path(@user, @document,image)) do %>
+        <div class="col-md-8 col-md-offset-2 latest_image" style="height:500px; background-image:url(<%= image.foto.url %>);">
+          <!-- link_to 'Delete', [image.document, image], method: :delete, data: { confirm: 'Are you sure?' }  -->
+        </div>
+      </div>
+      <div class="row">
+      <% end %>
+
+    <% end %>
+
+    <% if i == 1 %>
+    <div class="col-md-6 first_vertical_text_container">
+      <div class="first_vertical_text" style="text-align:right;">Edits Since last version</div>
+    </div>
+      <div class="col-md-6 border_left first_comment_container" style="margin-left:0px">
+        <div class="comment">
+          <ul>
+            <% image.comments.each do |comment| %>
+            <li><%= comment.value %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12" align='center'>
+        <h3>Previous versions</h3>
+        <hr />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12" style="text-align:center;">
+        <p ><strong><%= image.created_at.to_time.strftime('%B %e at %l:%M %p') %></strong></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 vertical_text_container border-right">
+        <div class="vertical_text" style="text-align:right;">
+          <%= link_to(user_document_image_path(@user, @document,image)) do %>
+            <div class="overview_thumb" style="background-image:url(<%= image.foto.url %>);">
+            </div>
+           <% end %>
+        </div>
+
+      </div>
+
+
+
+
+
+    <% end %>
+
+    <% if i > 1 %>
+    <div class="col-md-6">
+         <p style="margin-left:5px; margin-bottom:0px;">Edits</p>
+         <hr style="margin:0px 0px 5px 5px;"/>
+       <ul>
+            <% image.comments.each do |comment| %>
+            <li><%= comment.value %></li>
+            <% end %>
+          </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12" style="text-align:center;">
+      <p style="margin-top:10px;"><strong><%= image.created_at.to_time.strftime('%B %e at %l:%M %p') %></strong></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 vertical_text_container border-right">
+      <div class="vertical_text" style="text-align:right;">
+        <%= link_to(user_document_image_path(@user, @document,image)) do %>
+        <div class="overview_thumb" style="background-image:url(<%= image.foto.url %>);">
+        </div>
+         <% end %>
+      </div>
+    </div>
+
+
+
+    <% end %>
+
+
+
+
+
+    <% i = i +1 %>
+  <% end %>
+</div>
+<!-- end -->
+
+<!-- image_tag image.foto.url(:thumb)
+      link_to 'Show', user_document_image_path(@user, @document,image)
+      link_to 'Delete', [image.document, image], method: :delete, data: { confirm: 'Are you sure?' } -->
+
+<!-- STAT -->
+<h2> Add an image </h2>
+<%= form_for([@document, @document.images.build]) do |f| %>
+  <%= f.file_field :foto %>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+<!-- end -->
+
+
+<%= link_to 'Edit', edit_document_path(@document) %> |
+<%= link_to 'Back', user_documents_path %>    |
