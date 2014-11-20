@@ -15,9 +15,7 @@ Rails.application.routes.draw do
   resources :users do
     resources :documents do
       resources :images do
-
         resources :comments
-        resources :annotations
       end
     end
   end
@@ -30,7 +28,15 @@ Rails.application.routes.draw do
     resources :comments
   end
 
-  post 'annotations' => 'annotations#create'
+
+ # /users/20/documents/40/images/22
+
+ #post 'annotations' => 'annotations#create'
+
+  post '/users/:user_id/documents/:document_id/images/:image_id/annotations' => 'annotations#create'
+  get '/users/:user_id/documents/:document_id/images/:image_id/annotations' => 'annotations#index'
+   get '/users/:user_id/documents/:document_id/images/:image_id/annotations/:id' => 'annotations#show'
+
 
   # get 'users/:id', to: 'users#show', as: 'user'
   # get 'users/', to: 'users#index', as: 'all_user'

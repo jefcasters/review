@@ -16,6 +16,7 @@ class CommentsController < ApplicationController
   end
 
   def edit
+
   end
 
   def create
@@ -28,6 +29,7 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     @comment.image_id = params[:image_id]
     @comment.save
+
     @image = Image.find(params[:image_id])
     @document = Document.find(@image.document_id)
     @user = User.find(@document.user_id)
