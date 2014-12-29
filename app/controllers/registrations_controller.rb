@@ -35,6 +35,10 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     authorize! :create, @user
     super
+    if @user.save
+      # Tell the UserMailer to send a welcome email after save
+      NotificationMailer.welcome_email(@user).deliver
+    end
   end
 
   def edit

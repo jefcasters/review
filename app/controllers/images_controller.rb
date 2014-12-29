@@ -1,5 +1,8 @@
 class ImagesController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_user, only: [:show, :destroy]
   before_action :set_image, only: [:show, :edit, :update, :destroy]
+  before_action :set_document, only: [:show, :create, :destroy]
   respond_to :html
 
   def index
@@ -8,12 +11,8 @@ class ImagesController < ApplicationController
   end
 
   def show
-    @document = Document.find(params[:document_id])
-    @user = User.find(@document.user_id)
     @image = Image.find(params[:id])
     @comments = @image.comments
-
-    #redirect_to user_document_image_path(@user, @document, @image)
   end
 
   def new
@@ -26,14 +25,20 @@ class ImagesController < ApplicationController
 
   def create
     if(current_user.admin)
-      @document = Document.find(params[:document_id])
       @user = User.find(@document.user_id)
     else
       @user = current_user
     end
+    # @image = Image.new(image_params)
+    # @image.user_id = @user.id
+    # @image.document_name = Document.find(params[:document_id]).title
+    # @image.save
 
-    @document = Document.find(params[:document_id])
+
     @image = @document.images.create(image_params)
+    @image.user_id = @user.id
+    @image.document_name = Document.find(params[:document_id]).title
+    @image.save
 
     redirect_to user_document_path(@user, @document)
   end
@@ -44,15 +49,6 @@ class ImagesController < ApplicationController
   end
 
   def destroy
-
-    if(current_user.admin)
-      @document = Document.find(params[:document_id])
-      @user = User.find(@document.user_id)
-    else
-      @user = current_user
-    end
-
-    @document = Document.find(params[:document_id])
     @image = @document.images.find(params[:id])
     @image.destroy
     redirect_to user_document_path(@user, @document)

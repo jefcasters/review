@@ -1,4 +1,4 @@
-class UsersController < ActionController::Base
+class UsersController < ApplicationController #ActionController::Base
 before_action :authenticate_user!
 respond_to :html
 
@@ -13,7 +13,7 @@ helper_method :sort_column, :sort_direction
 
   private
   rescue_from CanCan::AccessDenied do |exception|
-   redirect_to user_documents_path(current_user.id), :alert => "you were not authorized to acces this page and have been redirected"
+   redirect_to user_documents_path(current_user.id), :notice => "you were not authorized to acces this page and have been redirected"
   end
    def sort_column
     User.column_names.include?(params[:sort]) ? params[:sort] : "name"

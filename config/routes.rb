@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'activities/index'
+
+  resources :activities
   resources :images
 
   # devise_for :users
@@ -35,7 +38,11 @@ Rails.application.routes.draw do
 
   post '/users/:user_id/documents/:document_id/images/:image_id/annotations' => 'annotations#create'
   get '/users/:user_id/documents/:document_id/images/:image_id/annotations' => 'annotations#index'
-   get '/users/:user_id/documents/:document_id/images/:image_id/annotations/:id' => 'annotations#show'
+  get '/users/:user_id/documents/:document_id/images/:image_id/annotations/:id' => 'annotations#show'
+  delete '/users/:user_id/documents/:document_id/images/:image_id/annotations/:id' => 'annotations#destroy'
+  put '/users/:user_id/documents/:document_id/images/:image_id/annotations/:id' => 'annotations#update'
+
+  post '/users/:user_id/documents/:document_id/images/:image_id/comments/:id' => 'comments#update'
 
 
   # get 'users/:id', to: 'users#show', as: 'user'

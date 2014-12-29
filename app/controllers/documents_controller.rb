@@ -1,8 +1,10 @@
 class DocumentsController < ApplicationController
+  before_action :authenticate_user!, :set_cache_headers
   before_action :set_document, only: [:show, :edit, :update, :destroy]
   before_action :posso, only: [:show]
+  before_action :set_user, only: [:index, :create, :destroy, :show, :new]
   respond_to :html
-  before_action :authenticate_user!
+
 
   def find_my_root
     if(current_user.admin)
@@ -14,36 +16,20 @@ class DocumentsController < ApplicationController
   end
 
   def index
-    @title ="Documents"
-    if(current_user.admin)
-      @user = User.find(params[:user_id])
-    else
-      @user = current_user
-    end
+    # Shows all documents, the ones that were last updated first
 
-    @documents = @user.documents
-
-    @images = Array.new
-    @documents.each do |document|
-      @images.push document.images.last
-    end
-
-    respond_with(@user,@documents,@images)
+    @documents = @user.documents.order('updated_at DESC')
+    respond_with(@user,@documents)
   end
 
   def show
-    @title ="Document name"
     @document = Document.find(params[:id])
-    @user = User.find(params[:user_id])
     @images = @document.images.order('created_at DESC')
     respond_with(@user,@document)
-
-
   end
 
   def new
     @document = Document.new
-    @user = User.find(params[:user_id])
     respond_with(@document)
   end
 
@@ -51,16 +37,11 @@ class DocumentsController < ApplicationController
   end
 
   def create
-    # @user = User.find(params[:user])
-    if(current_user.admin)
-      @user = User.find(params[:user_id])
-    else
-      @user = current_user
-    end
-
     @document = Document.new(document_params)
     @document.user_id = params[:user_id]
+    @document.created_by = current_user.name
     @document.save
+    # flash[:notice] = "Document Succesfuly created. Please upload a first version of this document."
     respond_with(@user,@document)
   end
 
@@ -70,7 +51,6 @@ class DocumentsController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:user_id])
     @document.destroy
     redirect_to user_documents_path(@user)
   end
@@ -88,4 +68,5 @@ class DocumentsController < ApplicationController
       @document = Document.find(params[:id])
       redirect_to root_path unless @document.user_id == current_user.id || current_user.admin
     end
+
 end

@@ -50,3 +50,7 @@ gem 'bootstrap-sass', '~> 3.3.1'
 gem 'autoprefixer-rails'
 
 gem 'masonry-rails'
+
+gem 'public_activity'
+
+gem 'whenever', :require => false

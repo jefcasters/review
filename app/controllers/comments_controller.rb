@@ -1,6 +1,10 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, :set_document, only: [:create, :update, :destroy]
+
+
+  respond_to :html
   def index
     @comments = Comment.all
     respond_with(@comments)
@@ -20,39 +24,40 @@ class CommentsController < ApplicationController
   end
 
   def create
-    if(current_user.admin)
-      @user = User.find(params[:user_id])
-    else
-      @user = current_user
-    end
 
     @comment = Comment.new(comment_params)
     @comment.image_id = params[:image_id]
+    @comment.document_id = params[:document_id]
+    @comment.user_id = params[:user_id]
+    @comment.comment_by = current_user.id
+    @comment.comment_name = current_user.name
+    @comment.document_name = Document.find(params[:document_id]).title
     @comment.save
 
     @image = Image.find(params[:image_id])
-    @document = Document.find(@image.document_id)
-    @user = User.find(@document.user_id)
+
+
+    # @document.updated_at = Time.now
+    # @document.save
+
   end
 
   def update
-    @comment.update(comment_params)
-    respond_with(@comment)
+
+    if(@document.user_id = @user.id)
+      @comment = Comment.find(params[:id])
+      @comment.update(:value=>params[:value])
+    end
+
   end
 
   def destroy
-    if(current_user.admin)
-      @user = User.find(params[:user_id])
-    else
-      @user = current_user
+    if(@document.user_id == @user.id)
+      @image = Image.find(params[:image_id])
+      @comment = @image.comments.find(params[:id])
+      @comment.destroy
+      respond_with(@user,@document,@image)
     end
-
-    @document = Document.find(params[:document_id])
-    @comment = @document.comments.find(params[:id])
-    @comment.destroy
-    redirect_to user_document_path(@user, @document)
-    # @comment.destroy
-    # respond_with(@comment)
   end
 
   private

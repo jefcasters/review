@@ -1,16 +1,15 @@
 require 'json'
 class AnnotationsController < ApplicationController
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :set_user, :set_image
+  before_action :set_document, only: [:create, :update, :destroy]
+
   def index
-    @image = Image.find(params[:image_id])
     @annotations = @image.comments
-    # render :json=> @annotations.to_json
   end
 
   def show
     @annotation = Comment.find(params[:id])
-    #render json: @annotation.as_json(only: [:json])
   end
 
   def new
@@ -21,33 +20,46 @@ class AnnotationsController < ApplicationController
   end
 
   def create
-    if(current_user.admin)
-      @user = User.find(params[:user_id])
-    else
-      @user = current_user
-    end
-    annotation_json=params[:annotation]
-    annotation_hash=JSON.parse(annotation_json)
-    @image = Image.find(params[:image_id])
+    create_annotation_hash_from_json()
     @document = Document.find(params[:document_id])
-    @comment=Comment.create(:value=>annotation_hash['text'],:json=>annotation_json, :image_id=>@image.id, :isAnnotation=>true)
-    render "comments/create"
+    @comment=Comment.create(:value=>@annotation_hash['text'],:json=>@annotation_json, :image_id=>@image.id, :isAnnotation=>true, :comment_by => current_user.id, :comment_name => current_user.name, :user_id => @user.id, :document_id=>params[:document_id], :image_id=>params["image_id"], :document_name=>@document.title)
+
+    render :json=> @comment.to_json
   end
 
   def update
-
+    # @document = Document.find(params[:document_id])
+    if(my_document?)
+      create_annotation_hash_from_json()
+      @comment = @image.comments.find(params[:id])
+      @comment.update(:value=>@annotation_hash['text'])
+    end
   end
 
   def destroy
-
+    # @document = Document.find(params[:document_id])
+    if(my_document?)
+      @comment = @image.comments.find(params[:id])
+      @deleted_comment_id = @comment.id
+      @comment.destroy
+    end
   end
 
   private
-    def set_comment
-      @comment = Comment.find(params[:id])
+    def my_document?
+      if(@document.user_id == @user.id)
+        return true
+      else
+        return false
+      end
     end
 
-    def comment_params
-      params.require(:comment).permit(:value, :reviewed)
+    def set_image
+      @image = Image.find(params[:image_id])
+    end
+
+    def create_annotation_hash_from_json
+      @annotation_json=params[:annotation]
+      @annotation_hash=JSON.parse(@annotation_json)
     end
 end

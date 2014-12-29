@@ -2,102 +2,87 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.item {
+
+.index_active_item {
     display: inline-block;
     margin: 3px;
     background-position: center center;
     background-size: cover;
-    -webkit-transition: all 0.5s;
-    -moz-transition: all 0.5s;
-    -ms-transition: all 0.5s;
-    -o-transition: all 0.5s;
-    transition: all 0.5s;
-    -webkit-filter: grayscale(100%);
+    float: right;
+    border: 1px solid black;
+    box-shadow: 1px 1px 5px #888888;
+    position:relative;
 }
 
-.index-item {
-    display: inline-block;
-    margin: 3px;
-    background-position: center center;
-    background-size: cover;
+.index_active_item .img_overlay{
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    // position: relative;
+    position: absolute;
+    top: 0px;
+    left: 0px;
 }
 
+.index_active_item .img_overlay p{
+    color:white;
+    font-size: 2em;
+}
+
+.index_active_item .img_overlay p a{
+    color:white;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+div{
+    border: 0px solid black;
+}
+
+.delete_document{
+    position:absolute;
+    z-index:1000;
+    top:1px;
+    right:1px;
+
+    font-size:1em !important;
+}
 /*Hover effects*/
-.item:hover {
-    -webkit-filter: none;
-    -moz-filter: none;
-    -ms-filter: none;
-    -o-filter: none;
-    filter: none;
+
+.index_active_item:hover .img_overlay {
+    display: block;
 }
 
-.index-item:hover {
-    display: inline-block;
-    margin: 3px;
-    background-position: center center;
-    background-size: cover;
-    border: 1px solid black;
+.index_active_item .img_overlay p a:hover{
+    color:white;
+    text-decoration: none;
+    background-color: transparent;
+    text-decoration: underline;
 }
 
 
 
-#add_document_button {
-    border: 1px solid black;
-    height: 194px;
-    width: 194px;
-    font-size: 13em;
-    text-align:center;
-}
 
-#add_document_button:hover {
-    border: 3px solid black;
-}
+
 
 
 
 /* documents index */
+
+.center_span{
+    margin: 0 auto;
+    display:table;
+}
+
 .latest_image{
   background-position: center center;
   background-size: cover;
   border: 1px solid black;
 }
 
-.first_comment_container{
-    display:flex;
-    height:100px;
-}
-
-.comment_container{
-    height: 250px;
-    display:flex;
-}
-
-.comment{
-    margin:auto 0;
-}
-
-.first_vertical_text_container{
-    height: 100px;
-    display:flex;
-}
-
-.vertical_text_container{
-    height: 250px;
-    display:flex;
-}
-
-.first_vertical_text{
-    margin:auto 0px auto 280px;
-
-}
-
-.vertical_text{
-  margin:auto 0px auto 300px;
-}
 
 .border_left{
     border-left:3px solid #ccc;
-    height:100px;
+    // min-height: 100px;
 }
 
 hr
@@ -119,6 +104,7 @@ hr
     -ms-transition: all 0.5s;
     -o-transition: all 0.5s;
     transition: all 0.5s;
+    float:right;
     -webkit-filter: grayscale(100%);
     width:250px;
     height:250px;
@@ -134,6 +120,7 @@ hr
     filter: none;
 }
 
-.border-right{
-    border-right:3px solid #ccc;
+.border-left{
+    border-left:3px solid #ccc;
 }
+

@@ -3,14 +3,17 @@
 // # You can use CoffeeScript in this file: http://coffeescript.org/
 
 
-function doMasonryMagic(){
-  var container = document.querySelector('#masonry-container');
-    var msnry = new Masonry( container, {
-    // options
-    columnWidth: 50,
-    itemSelector: '.index-item',
-  });
-}
-
+// $(function() {
+//     $('#new_image').submit(function() {
+//       // return false to cancel form action
+//       var fileName = $("#image_foto").val();
+//       if(fileName) { // returns true if the string is not empty
+//         return true;
+//       } else { // no file was selected
+//         alert("Oops! looks like you forgot to select a file. Select a file and try again");
+//         return false;
+//       }
+//     });
+// });
 
 

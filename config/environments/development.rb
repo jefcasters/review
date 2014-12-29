@@ -13,8 +13,18 @@ Rails.application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  # Don't care if the mailer can't send. <= This is a lie
+  config.action_mailer.raise_delivery_errors = true
+  ActionMailer::Base.smtp_settings ={
+    :address              => "just112.justhost.com",
+    :port                 => 465,
+    :domain               => "washingtongraphic.com",
+    :tls                  => true,
+    :user_name            => "support@washingtongraphic.com",
+    :password             => "9qld(+^Rq628",
+    :authentication       => "login",
+    :enable_starttls_auto => true
+  }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -38,4 +48,5 @@ Rails.application.configure do
    config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
    Paperclip.options[:command_path] = "/usr/local/bin/convert"
+
 end

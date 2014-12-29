@@ -1,8 +1,11 @@
 class Image < ActiveRecord::Base
+  include PublicActivity::Model
+  tracked owner: -> (controller, model) { controller && controller.current_user }
+
   belongs_to :document
   has_many :comments
 
-  has_attached_file :foto, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
+  has_attached_file :foto, :styles => { :medium => "500x500>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :foto, :content_type => /\Aimage\/.*\Z/
   before_save :extract_dimensions
   serialize :dimensions

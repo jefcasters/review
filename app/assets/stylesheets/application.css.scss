@@ -28,13 +28,12 @@
 
 //Set defaults
 body {
-  font-family: 'BlairMdITC TT';
+  // font-family: 'BlairMdITC TT';
+  font-family: 'Ubuntu';
   color: #89867e;
   // background: #e6e6e6;
   background: #fff;
-
-  font-size: 10px;
-}
+ }
 
 
 #header{
@@ -51,4 +50,38 @@ body {
 
 }
 
+#sign_out_button{
+  float:right;
+  padding-right:20px;
+  color:white;
+  margin-top:30px;
+}
 
+#sign_out_button a{
+  color:#e6e6e6;
+  font-size:1.1em;
+}
+
+#sign_out_button a:hover{
+  background-color: #89867e;
+}
+
+#back_button{
+  margin-left:20px;
+  margin-top: 30px;
+}
+
+#back_button a{
+  color:#e6e6e6;
+  font-size:1.1em;
+}
+
+#back_button a:hover{
+  color:#e6e6e6;
+  font-size:1.1em;
+  background-color: #89867e;
+}
+
+.notice{
+  font-size: 1.1em;
+}
